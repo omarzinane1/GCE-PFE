@@ -1,0 +1,495 @@
+<div class="flex flex-col gap-2">
+  <div>
+    <h1 class="font-bold text-xl uppercase">
+      <i class="fa-solid fa-user"></i> Bienvenue: {{ Name }}
+    </h1>
+  </div>
+  <!--l'etat de gestion de la liste des chéques-->
+  <div
+    *ngIf="Role !== 'admin'"
+    class="flex items-center w-full justify-center h-32 shadow-lg bg-gray-100 duration-300"
+  >
+    <div class="grid grid-flow-row grid-cols-4 gap-6">
+      <!-- Première étape -->
+      <div class="text-center mx-4">
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 rounded-full flex items-center justify-center text-white"
+            [ngClass]="{
+              'bg-green-500': Role === 'DFC',
+              'bg-gray-700': Role !== 'DFC'
+            }"
+          >
+            1
+          </div>
+          <div class="w-24 h-1 bg-gray-400"></div>
+        </div>
+        <p
+          class="mt-2"
+          [ngClass]="{
+            'text-green-500': Role === 'DFC',
+            'text-gray-700': Role !== 'DFC'
+          }"
+        >
+          Service DFC
+        </p>
+      </div>
+
+      <!-- Deuxième étape -->
+      <div class="text-center mx-4">
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 rounded-full flex items-center justify-center text-white"
+            [ngClass]="{
+              'bg-blue-500': Role === 'SC',
+              'bg-gray-700': Role !== 'SC'
+            }"
+          >
+            2
+          </div>
+          <div class="w-24 h-1 bg-gray-400"></div>
+        </div>
+        <p
+          class="mt-2"
+          [ngClass]="{
+            'text-blue-500': Role === 'SC',
+            'text-gray-700': Role !== 'SC'
+          }"
+        >
+          Service Commercial
+        </p>
+      </div>
+
+      <!-- Troisième étape -->
+      <div class="text-center mx-4">
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 rounded-full flex items-center justify-center text-white"
+            [ngClass]="{
+              'bg-blue-500': Role === 'SJN',
+              'bg-gray-700': Role !== 'SJN'
+            }"
+          >
+            3
+          </div>
+          <div class="w-24 h-1 bg-gray-400"></div>
+        </div>
+        <p
+          class="mt-2"
+          [ngClass]="{
+            'text-blue-500': Role === 'SJN',
+            'text-gray-700': Role !== 'SJN'
+          }"
+        >
+          Service Juridique Normale
+        </p>
+      </div>
+
+      <!-- Quatrième étape -->
+      <div class="text-center mx-4">
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 rounded-full flex items-center justify-center text-white"
+            [ngClass]="{
+              'bg-indigo-400': Role === 'SJC',
+              'bg-gray-700': Role !== 'SJC'
+            }"
+          >
+            4
+          </div>
+          <svg
+            class="ml-4 w-8 h-8 text-gray-400"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+        <p
+          class="mt-2"
+          [ngClass]="{
+            'text-indigo-400': Role === 'SJC',
+            'text-gray-700': Role !== 'SJC'
+          }"
+        >
+          Service Juridique Définitif
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!--Fin de section de l'etat-->
+  <div
+    *ngIf="Role == 'DFC'"
+    class="flex justify-between items-center bg-gray-200 p-4 rounded-md"
+  >
+    <p class="w-1/2">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. exercitationem
+      molestiae officia laborum cum praesentium!
+    </p>
+    <button
+      class="bg-blue-950 p-3 font-medium text-white rounded-lg"
+      type="submit"
+      (click)="toggleForm()"
+    >
+      <i class="fa-solid fa-plus"></i> Chèque
+    </button>
+  </div>
+  <!--Ajoutre les role-->
+  <div
+    *ngIf="Role == 'admin'"
+    class="flex justify-between items-center bg-gray-200 p-4 rounded-md"
+  >
+    <p class="w-1/2">Attribuer des rôles à chaque utilisateur.</p>
+    <button
+      class="bg-blue-950 p-3 font-medium text-white rounded-lg"
+      type="submit"
+      (click)="toggleFormRole()"
+    >
+      <i class="fa-solid fa-plus"></i> Rôle
+    </button>
+  </div>
+  <!--End Role-->
+  <!--Ajoutre les clients-->
+  <div
+    *ngIf="Role == 'SC'"
+    class="flex justify-between items-center bg-gray-200 p-2"
+  >
+    <p class="w-1/2 pl-3">section pour les données complètes du client.</p>
+    <button
+      class="bg-blue-950 p-1 px-3 font-medium text-white rounded-sm"
+      type="submit"
+      (click)="toggleFormClient()"
+    >
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+  <!--End client-->
+  <!--Accordion -->
+  <ng-container *ngIf="Role == 'admin'">
+    <div *ngFor="let item of items">
+      <div class="flex flex-row pr-4 bg-gray-200">
+        <button
+          class="w-full text-left p-3 font-bold uppercase"
+          (click)="toggle(0)"
+        >
+          <i class="fa-regular fa-user"></i> {{ item.name }}
+        </button>
+        <button class="text-red-600" (click)="onDeleteUser(item.id)">
+          <i class="fa-solid fa-trash text-xl"></i>
+        </button>
+      </div>
+      <div
+        *ngIf="activeIndex === 0"
+        class="flex flex-col gap-2 p-3 bg-gray-100"
+      >
+        <strong><i class="fa-regular fa-envelope"></i> {{ item.email }}</strong>
+        <hr class="text-gray-500" />
+        <strong><i class="fa-solid fa-r"></i> {{ item.role }}</strong>
+        <p></p>
+      </div>
+    </div>
+  </ng-container>
+
+  <!--End Accordion-->
+  <!--le form pour les chéques-->
+  <div
+    *ngIf="isFormVisible"
+    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-10"
+  >
+    <form
+      (ngSubmit)="onSubmit()"
+      class="bg-white p-6 rounded-lg lg:w-1/3 w-72 text-center"
+    >
+      <h2 class="text-lg font-bold">Ajouter un Chèque</h2>
+      <input
+        type="text"
+        placeholder="N° Chèque"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="numCheque"
+        name="numCheque"
+      />
+      <input
+        type="number"
+        placeholder="Montant"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="montant"
+        name="montant"
+      />
+      <input
+        type="date"
+        placeholder="Date"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="dateReception"
+        name="dateReception"
+      />
+      <select
+        name="Ville"
+        [(ngModel)]="Ville"
+        class="p-2 rounded-md w-full mt-2"
+      >
+        <option value="">Choisissez une ville</option>
+        <option value="Sidi Bennour">Sidi Bennour</option>
+        <option value="El Jadida">El Jadida</option>
+        <option value="Agadir">Agadir</option>
+        <option value="Al Hoceïma">Al Hoceïma</option>
+        <option value="Azrou">Azrou</option>
+        <option value="Beni Mellal">Beni Mellal</option>
+        <option value="Boujdour">Boujdour</option>
+        <option value="Casablanca">Casablanca</option>
+        <option value="Chefchaouen">Chefchaouen</option>
+        <option value="Dakhla">Dakhla</option>
+        <option value="Erfoud">Erfoud</option>
+        <option value="Essaouira">Essaouira</option>
+        <option value="Fès">Fès</option>
+        <option value="Ifrane">Ifrane</option>
+        <option value="Kénitra">Kénitra</option>
+        <option value="Laâyoune">Laâyoune</option>
+        <option value="Marrakech">Marrakech</option>
+        <option value="Meknès">Meknès</option>
+        <option value="Mohammédia">Mohammédia</option>
+        <option value="Nador">Nador</option>
+        <option value="Ouarzazate">Ouarzazate</option>
+        <option value="Oujda">Oujda</option>
+        <option value="Rabat">Rabat</option>
+        <option value="Safi">Safi</option>
+        <option value="Salé">Salé</option>
+        <option value="Tanger">Tanger</option>
+        <option value="Taza">Taza</option>
+        <option value="Tétouan">Tétouan</option>
+      </select>
+      <select
+        name="Banque"
+        [(ngModel)]="Banque"
+        class="p-2 rounded-md w-full mt-2"
+      >
+        <option value="">Choisissez une banque</option>
+        <option value="Attijariwafa Bank">Attijariwafa Bank</option>
+        <option value="Banque Populaire">Banque Populaire</option>
+        <option value="BMCE Bank">BMCE Bank</option>
+        <option value="Crédit Agricole du Maroc">
+          Crédit Agricole du Maroc
+        </option>
+        <option value="CIH Bank">CIH Bank</option>
+        <option value="Société Générale Maroc">Société Générale Maroc</option>
+        <option value="Banque Centrale Populaire">
+          Banque Centrale Populaire
+        </option>
+        <option value="BMCI">BMCI</option>
+        <option value="Crédit du Maroc">Crédit du Maroc</option>
+        <option value="Al Barid Bank">Al Barid Bank</option>
+      </select>
+
+      <div class="flex justify-center mt-4">
+        <button class="bg-dark-purple text-white p-2 rounded-md" type="submit">
+          <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+        </button>
+        <button
+          class="bg-gray-400 text-white p-2 rounded-md ml-2"
+          type="button"
+          (click)="toggleForm()"
+        >
+          <i class="fa-solid fa-xmark"></i> Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--le form pour les clients-->
+  <div
+    *ngIf="isFormClientVisible"
+    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-10"
+  >
+    <form
+      (ngSubmit)="updateCheque()"
+      class="bg-white p-6 rounded-lg lg:w-1/3 w-72 text-center"
+    >
+      <h2 class="text-lg font-bold">Compléter le chèque</h2>
+      <input
+        type="text"
+        placeholder="CIN"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="Cin"
+        name="Cin"
+      />
+      <input
+        type="text"
+        placeholder="Téléphone"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="Telephone"
+        name="Telephone"
+      />
+      <input
+        type="text"
+        placeholder="Motif"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="Motif"
+        name="Motif"
+      />
+      <div class="flex justify-center mt-4">
+        <button class="bg-dark-purple text-white p-2 rounded-md" type="submit">
+          <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+        </button>
+        <button
+          class="bg-gray-400 text-white p-2 rounded-md ml-2"
+          type="button"
+          (click)="toggleFormClient()"
+        >
+          <i class="fa-solid fa-xmark"></i> Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--la table des cheques sont donne des clients-->
+  <div *ngIf="Role == 'SC'" class="mt-2 overflow-auto bg-white p-4 shadow-md">
+    <table class="min-w-full bg-gray-50">
+      <thead class="bg-gray-200">
+        <tr>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          ></th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            N° Cheque
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Montant
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Date Reception
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            CIN
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Téléphone
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Ville
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Banque
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Motif
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Date Validation
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Statut
+          </th>
+        </tr>
+      </thead>
+      <tbody class="overflow-y-auto" *ngFor="let cheque of data; let i = index">
+        <tr class="bg-gray-50 hover:bg-gray-200">
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            <input type="checkbox" (change)="onSelect(cheque)" />
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.NumCHEQUE }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.montant }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.date_reception }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.CIN }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.telephone }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.ville }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.banque }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.motif }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.created_at }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            <span class="text-red-600 text-base font-semibold p-2">{{
+              cheque.statut
+            }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--Fin la table des cheques sont donne des clients-->
+  <!--la form pour assign une role a une utilisateur-->
+  <div
+    *ngIf="isFormRoleVisible"
+    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-10"
+  >
+    <form class="bg-white p-6 rounded-lg lg:w-1/3 w-72 text-center">
+      <h2 class="text-lg font-bold">Attribuer un Rôle à un Utilisateur</h2>
+      <input
+        type="text"
+        placeholder="Entre email du Client"
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="email"
+        name="cniClient"
+        required
+      />
+      <select
+        class="p-2 rounded-md w-full mt-2"
+        [(ngModel)]="selectedRole"
+        name="selectedRole"
+        required
+      >
+        <option value="" disabled selected>Choisissez un Rôle</option>
+        <option value="DFC">DFC</option>
+        <option value="SC">SC</option>
+        <option value="SJN">SJN</option>
+      </select>
+      <div class="flex justify-center mt-4">
+        <button
+          (click)="onUpdateRole()"
+          class="bg-dark-purple text-white p-2 rounded-md"
+          type="submit"
+        >
+          <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+        </button>
+        <button
+          class="bg-gray-400 text-white p-2 rounded-md ml-2"
+          type="button"
+          (click)="toggleFormRole()"
+        >
+          <i class="fa-solid fa-xmark"></i> Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!--End form pour assign une role a une utilisateur-->
+</div>

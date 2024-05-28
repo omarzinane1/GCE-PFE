@@ -1,0 +1,73 @@
+<div class="flex">
+  <div
+    class="bg-dark-purple p-5 pt-8 duration-300"
+    [ngClass]="sidebarVisible ? 'w-60' : 'w-20'"
+    style="position: fixed; top: 0; bottom: 0; left: 0; z-index: 2"
+  >
+    <i
+      class="fa-solid fa-arrow-left text-center bg-white text-dark-purple text-2xl w-8 rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer"
+      [ngClass]="!sidebarVisible ? 'rotate-180' : ''"
+      (click)="toggleSidebar()"
+    ></i>
+
+    <!-- Sidebar Content -->
+    <div class="flex items-center justify-center">
+      <i
+        class="fa-solid fa-g text-2xl font-bold text-white duration-500"
+        [ngClass]="!sidebarVisible ? 'rotate-[360deg]' : ''"
+      ></i>
+      <h1
+        class="text-white origin-left font-medium duration-300"
+        [class.hidden]="!sidebarVisible"
+      >
+        - CHEQUE
+      </h1>
+    </div>
+
+    <hr
+      class="text-light-white"
+      [ngClass]="!sidebarVisible ? 'w-10' : 'w-50'"
+    />
+    <ul class="flex flex-col gap-6 mt-14">
+      <li
+        *ngFor="
+          let menu of getMenusByRole(Role);
+          let last = last;
+          let first = first
+        "
+        class="relative flex justify-center items-center p-2 rounded-md hover:bg-light-white cursor-pointer text-white gap-2"
+        [ngClass]="{ deconnecter: last, 'bg-light-white': first }"
+        [routerLink]="menu.link"
+        (click)="last ? logout() : null"
+      >
+        <i class="fa-solid" [ngClass]="menu.icon"></i>
+        <span
+          class="font-medium flex-1 duration-200"
+          [class.hidden]="!sidebarVisible"
+        >
+          {{ menu.title }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  <!-- Main Content -->
+  <div
+    class="flex flex-col w-full"
+    [ngClass]="sidebarVisible ? 'ml-60' : 'ml-20'"
+  >
+    <div
+      class="p-5 bg-dark-purple w-full h-16 duration-300"
+      style="position: fixed; top: 0; left: 0; right: 0; z-index: 1"
+      [ngClass]="sidebarVisible ? 'ml-60' : 'ml-20'"
+    >
+      <span class="text-white font-medium">
+        <i class="fa-solid fa-house"></i> Accueil
+      </span>
+    </div>
+
+    <!-- Content router-outlet -->
+    <div class="px-4 duration-300 py-24">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

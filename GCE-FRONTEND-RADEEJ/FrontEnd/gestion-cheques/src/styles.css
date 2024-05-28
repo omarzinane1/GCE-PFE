@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#toast-container {
+  color: white;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: 300px;
+
+}
+.custom-toast{
+  background: rgb(89, 179, 101);
+  padding: 10px;
+  border-radius: 5px;
+}
+#toast-container .toast-message {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+#toast-container .toast-title {
+  font-weight: bold;
+}
+#toast-container > div.toast-error {
+  background-color: #ff0000;
+  color: #000000;
+}
+

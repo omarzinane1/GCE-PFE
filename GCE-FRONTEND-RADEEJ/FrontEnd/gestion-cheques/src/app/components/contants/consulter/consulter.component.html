@@ -1,0 +1,440 @@
+<div class="container grid grid-cols-1 gap-3 mx-auto bg-gray-50">
+  <!-- Menu des Statistiques -->
+  <ng-container>
+    <div
+      class="bg-gray-200 rounded-t-lg px-4 py-3 cursor-pointer"
+      (click)="toggleAccordion2(0)"
+    >
+      <div class="flex justify-between items-center">
+        <span class="font-bold text-gray-800">Analyse de recherche</span>
+        <i
+          [class]="
+            'fa-solid' +
+            (activeIndex === 0 ? ' fa-chevron-up' : ' fa-chevron-down')
+          "
+          class="text-gray-600 transition-transform duration-300"
+        ></i>
+      </div>
+    </div>
+
+    <div
+      *ngIf="activeIndex2 === 0"
+      class="p-4 bg-white rounded-b-lg transition-opacity duration-300"
+    >
+      <!--Début de l'accordion-->
+      <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-3 w-full max-w-6xl">
+        <!-- Chèques Payés -->
+        <div class="flex items-center p-4 bg-white rounded">
+          <div
+            class="flex flex-shrink-0 items-center justify-center bg-green-200 h-16 w-16 rounded"
+          >
+            <svg
+              class="w-6 h-6 fill-current text-green-700"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 011.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="flex-grow flex flex-col ml-4">
+            <span class="text-xl font-bold text-green-600">{{
+              statistiques.chequesPayes
+            }}</span>
+            <span class="text-gray-500">Chèques Payés</span>
+          </div>
+        </div>
+
+        <!-- Chèques Impayés -->
+        <div class="flex items-center p-4 bg-white rounded">
+          <div
+            class="flex flex-shrink-0 items-center justify-center bg-red-200 h-16 w-16 rounded"
+          >
+            <svg
+              class="w-6 h-6 fill-current text-red-700"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="flex-grow flex flex-col ml-4">
+            <span class="text-xl font-bold text-red-600">{{
+              statistiques.chequesImpayes
+            }}</span>
+            <span class="text-gray-500">Chèques Impayés</span>
+          </div>
+        </div>
+
+        <!-- Lignes Obtenues -->
+        <div class="flex items-center p-4 bg-white rounded">
+          <div
+            class="flex flex-shrink-0 items-center justify-center bg-blue-200 h-16 w-16 rounded"
+          >
+            <svg
+              class="w-6 h-6 fill-current text-blue-700"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 011.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="flex-grow flex flex-col ml-4">
+            <span class="text-xl font-bold text-blue-600">{{
+              statistiques.lignesObtenues
+            }}</span>
+            <span class="text-gray-500">Lignes Obtenues</span>
+          </div>
+        </div>
+
+        <!-- Montant Maximum -->
+        <div class="flex items-center p-4 bg-white rounded">
+          <div
+            class="flex items-center justify-center bg-gray-200 h-16 w-16 rounded"
+          >
+            <i class="fa-solid fa-circle-dollar-to-slot text-2xl"></i>
+          </div>
+          <div class="flex-grow flex flex-col ml-4">
+            <span class="text-xl font-bold text-gray-800">{{
+              statistiques.montantMax | currency
+            }}</span>
+            <span class="text-gray-500">Montant Maximum</span>
+          </div>
+        </div>
+
+        <!-- Montant Minimum -->
+        <div class="flex items-center p-4 bg-white rounded">
+          <div
+            class="flex items-center justify-center bg-gray-200 h-16 w-16 rounded"
+          >
+            <i class="fa-solid fa-circle-dollar-to-slot text-2xl"></i>
+          </div>
+          <div class="flex-grow flex flex-col ml-4">
+            <span class="text-xl font-bold text-gray-800">{{
+              statistiques.montantMin | currency
+            }}</span>
+            <span class="text-gray-500">Montant Minimum</span>
+          </div>
+        </div>
+      </div>
+      <!--Accordion Fini-->
+    </div>
+  </ng-container>
+  <!-- Statistiques Finit -->
+
+  <ng-container>
+    <div
+      class="bg-gray-200 rounded-t-lg px-4 py-3 cursor-pointer"
+      (click)="toggleAccordion(0)"
+    >
+      <div class="flex justify-between items-center">
+        <span class="font-bold text-gray-800">Recherche de Chèques</span>
+        <i
+          [class]="
+            'fa-solid' +
+            (activeIndex === 0 ? ' fa-chevron-up' : ' fa-chevron-down')
+          "
+          class="text-gray-600 transition-transform duration-300"
+        ></i>
+      </div>
+    </div>
+
+    <div
+      *ngIf="activeIndex === 0"
+      class="p-3 bg-white rounded-b-lg transition-opacity duration-300"
+    >
+      <!-- Formulaire de recherche -->
+      <form
+        (ngSubmit)="onSearch()"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2"
+      >
+        <!-- Numéro de Chèque -->
+        <div>
+          <input
+            type="number"
+            id="numero_cheque"
+            name="numero_cheque"
+            placeholder="Entrez le numéro"
+            [(ngModel)]="searchParams.numero_cheque"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Montant -->
+        <div>
+          <input
+            type="number"
+            id="montant"
+            name="montant"
+            placeholder="Entrez le montant"
+            [(ngModel)]="searchParams.montant"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Date de Réception -->
+        <div>
+          <input
+            type="date"
+            id="date_reception"
+            name="date_reception"
+            placeholder="JJ/MM/AAAA"
+            [(ngModel)]="searchParams.date_reception"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- CIN -->
+        <div>
+          <input
+            type="text"
+            id="CIN"
+            name="CIN"
+            placeholder="Entrez CIN"
+            [(ngModel)]="searchParams.CIN"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- telephone -->
+        <div>
+          <input
+            type="number"
+            id="telephone"
+            name="telephone"
+            placeholder="Entrez le telephone"
+            [(ngModel)]="searchParams.telephone"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Ville -->
+        <div>
+          <select
+            name="ville"
+            [(ngModel)]="searchParams.ville"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Choisissez une ville</option>
+            <option value="Sidi Bennour">Sidi Bennour</option>
+            <option value="El Jadida">El Jadida</option>
+            <option value="Agadir">Agadir</option>
+            <option value="Al Hoceïma">Al Hoceïma</option>
+            <option value="Azrou">Azrou</option>
+            <option value="Beni Mellal">Beni Mellal</option>
+            <option value="Boujdour">Boujdour</option>
+            <option value="Casablanca">Casablanca</option>
+            <option value="Chefchaouen">Chefchaouen</option>
+            <option value="Dakhla">Dakhla</option>
+            <option value="Erfoud">Erfoud</option>
+            <option value="Essaouira">Essaouira</option>
+            <option value="Fès">Fès</option>
+            <option value="Ifrane">Ifrane</option>
+            <option value="Kénitra">Kénitra</option>
+            <option value="Laâyoune">Laâyoune</option>
+            <option value="Marrakech">Marrakech</option>
+            <option value="Meknès">Meknès</option>
+            <option value="Mohammédia">Mohammédia</option>
+            <option value="Nador">Nador</option>
+            <option value="Ouarzazate">Ouarzazate</option>
+            <option value="Oujda">Oujda</option>
+            <option value="Rabat">Rabat</option>
+            <option value="Safi">Safi</option>
+            <option value="Salé">Salé</option>
+            <option value="Tanger">Tanger</option>
+            <option value="Taza">Taza</option>
+            <option value="Tétouan">Tétouan</option>
+          </select>
+        </div>
+
+        <!-- Banque -->
+        <div>
+          <select
+            name="banque"
+            [(ngModel)]="searchParams.banque"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Choisissez une banque</option>
+            <option value="Attijariwafa Bank">Attijariwafa Bank</option>
+            <option value="Banque Populaire">Banque Populaire</option>
+            <option value="BMCE Bank">BMCE Bank</option>
+            <option value="Crédit Agricole du Maroc">
+              Crédit Agricole du Maroc
+            </option>
+            <option value="CIH Bank">CIH Bank</option>
+            <option value="Société Générale Maroc">
+              Société Générale Maroc
+            </option>
+            <option value="Banque Centrale Populaire">
+              Banque Centrale Populaire
+            </option>
+            <option value="BMCI">BMCI</option>
+            <option value="Crédit du Maroc">Crédit du Maroc</option>
+            <option value="Al Barid Bank">Al Barid Bank</option>
+          </select>
+        </div>
+
+        <!-- Ordre -->
+        <div>
+          <input
+            type="text"
+            id="ordre"
+            name="ordre"
+            placeholder="Entrez l'Motif"
+            [(ngModel)]="searchParams.motif"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Statut -->
+        <div>
+          <select
+            name="statut"
+            [(ngModel)]="searchParams.statut"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Choisissez une statut</option>
+            <option value="impaye">Impayés</option>
+            <option value="paye">Payés</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <button
+            type="submit"
+            class="bg-dark-purple text-white w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 transition duration-200"
+          >
+            Rechercher
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-container>
+
+  <!-- Tableau des résultats -->
+  <div class="overflow-x-auto bg-white p-4 shadow-md">
+    <table class="min-w-full bg-gray-50">
+      <thead class="bg-gray-200">
+        <tr>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            N° Cheque
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Montant
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Date Reception
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            CIN
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Téléphone
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Ville
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Banque
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Motif
+          </th>
+          <th
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Statut
+          </th>
+          <th
+            *ngIf="Role == 'DFC'"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Confirmer
+          </th>
+          <th
+            *ngIf="Role == 'DFC'"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Envoi
+          </th>
+          <th
+            *ngIf="Role == 'admin'"
+            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cheque of cheques" class="bg-white hover:bg-gray-100">
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.NumCHEQUE }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.montant }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.date_reception }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.CIN }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.telephone }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.ville }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.banque }}
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700 border-b">
+            {{ cheque.motif }}
+          </td>
+          <td class="px-6 py-4 text-sm text-red-700 border-b font-semibold">
+            {{ cheque.statut }}
+          </td>
+          <td
+            *ngIf="Role == 'admin'"
+            class="px-6 py-4 text-sm text-gray-700 border-b"
+          >
+            <button class="bg-red-500 text-white rounded-lg px-3 py-2">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
