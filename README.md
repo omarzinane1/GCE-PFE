@@ -7,11 +7,7 @@ Cette application vise à rationaliser et automatiser le processus de traitement
 - [Technologies Utilisées](#technologies-utilisées)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Utilisation](#utilisation)
-- [Fonctionnalités](#fonctionnalités)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
-
+  
 ## Technologies Utilisées
 - **TypeScript**: Utilisé pour le développement frontend avec Angular et pour les scripts d'automatisation.
 - **Angular**: Framework frontend pour la création d'une interface utilisateur dynamique et réactive.
